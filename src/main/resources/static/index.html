@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMLogistics — Shipping Cost Calculator</title>
+  <link rel="icon" type="image/png" href="/img/icon.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -365,6 +366,22 @@
           <span class="rval" id="rVat">—</span>
         </div>
         <div class="result-row">
+          <span class="rkey">Customs fee (RUB)</span>
+          <span class="rval" id="rCustomFee">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Sea delivery (RUB)</span>
+          <span class="rval" id="rSeeDelivery">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Railway delivery (RUB)</span>
+          <span class="rval" id="rRailwayDelivery">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Last mile delivery (RUB)</span>
+          <span class="rval" id="rLastMileDelivery">—</span>
+        </div>
+        <div class="result-row">
           <span class="rkey">Agent fee (RUB)</span>
           <span class="rval" id="rAgentFee">—</span>
         </div>
@@ -443,8 +460,12 @@
         document.getElementById('rCustomPrice').textContent = fmt(data.customPriceInTargetCurrency);
         document.getElementById('rCustomDuty').textContent = fmt(data.customDutyInTargetCurrency);
         document.getElementById('rTotalCost').textContent  = fmt(data.totalCostInTargetCurrency);
-        document.getElementById('rVat').textContent        = fmt(data.vatTotal);
-        document.getElementById('rAgentFee').textContent   = fmt(data.agentFee);
+        document.getElementById('rVat').textContent             = fmt(data.vatTotal);
+        document.getElementById('rCustomFee').textContent       = fmt(data.customFeeInTargetCurrency);
+        document.getElementById('rSeeDelivery').textContent     = fmt(data.seeDeliveryInTargetCurrency);
+        document.getElementById('rRailwayDelivery').textContent = fmt(data.railwayDeliveryInTargetCurrency);
+        document.getElementById('rLastMileDelivery').textContent = fmt(data.lastMileDeliveryInTargetCurrency);
+        document.getElementById('rAgentFee').textContent        = fmt(data.agentFee);
         document.getElementById('rTotalPerSqm').textContent = fmt(data.totalPricePerSqmInTargetCurrency);
         document.getElementById('rTotal').textContent      = fmt(data.totalPrice);
         document.getElementById('rCurrency').textContent   = data.currency;

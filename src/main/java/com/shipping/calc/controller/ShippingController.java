@@ -28,12 +28,4 @@ public class ShippingController {
         var response = shippingService.calculate(request);
         return ResponseEntity.ok(response);
     }
-
-    @GetMapping("/health")
-    public ResponseEntity<Map<String, String>> health() {
-        Map<String, String> status = new HashMap<>();
-        status.put("status", "UP");
-        status.put("service", "Shipping Cost Calculator");
-        return ResponseEntity.ok(status);
-    }
 }

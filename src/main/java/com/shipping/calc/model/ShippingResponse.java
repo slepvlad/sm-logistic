@@ -17,6 +17,10 @@ public class ShippingResponse {
     private double customDutyInTargetCurrency;
     private double totalCostInTargetCurrency;
     private double vatTotal;
+    private double customFeeInTargetCurrency;
+    private double seeDeliveryInTargetCurrency;
+    private double railwayDeliveryInTargetCurrency;
+    private double lastMileDeliveryInTargetCurrency;
     private double agentFee;
     private double totalPrice;
     private double totalPricePerSqmInTargetCurrency;

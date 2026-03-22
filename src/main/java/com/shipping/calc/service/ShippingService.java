@@ -18,8 +18,10 @@ public class ShippingService {
 	private static final BigDecimal VAT_RATE = BigDecimal.valueOf(0.22);
 	private static final BigDecimal CUSTOM_FEE_IN_TARGET_CURRENCY = BigDecimal.valueOf(20000);
 	private static final BigDecimal SEE_DELIVERY_IN_TARGET_CURRENCY = BigDecimal.valueOf(182750);
-	private static final BigDecimal RAILWAY_DELIVERY_IN_TARGET_CURRENCY = BigDecimal.valueOf(232900);
-	private static final BigDecimal LAST_MILE_DELIVERY_IN_TARGET_CURRENCY = BigDecimal.valueOf(51810);
+	private static final BigDecimal RAILWAY_DELIVERY_IN_TARGET_CURRENCY = BigDecimal.valueOf(
+			232900);
+	private static final BigDecimal LAST_MILE_DELIVERY_IN_TARGET_CURRENCY = BigDecimal.valueOf(
+			51810);
 	private static final BigDecimal AGENT_FEE_RATE = BigDecimal.valueOf(0.06);
 	
 	
@@ -37,7 +39,8 @@ public class ShippingService {
 		var totalCostInTargetCurrency = customPriceInTargetCurrency.add(customDutyInTargetCurrency);
 		var vatTotal = totalCostInTargetCurrency.multiply(VAT_RATE);
 		var agentFee = AGENT_FEE_RATE.multiply(fobSumInTargetCurrency);
-		var totalPrice = totalCostInTargetCurrency
+		var totalPrice = fobSumInTargetCurrency
+				.add(customDutyInTargetCurrency)
 				.add(vatTotal)
 				.add(CUSTOM_FEE_IN_TARGET_CURRENCY)
 				.add(SEE_DELIVERY_IN_TARGET_CURRENCY)
@@ -58,6 +61,10 @@ public class ShippingService {
 				.customDutyInTargetCurrency(customDutyInTargetCurrency.doubleValue())
 				.totalCostInTargetCurrency(totalCostInTargetCurrency.doubleValue())
 				.vatTotal(vatTotal.doubleValue())
+				.customFeeInTargetCurrency(CUSTOM_FEE_IN_TARGET_CURRENCY.doubleValue())
+				.seeDeliveryInTargetCurrency(SEE_DELIVERY_IN_TARGET_CURRENCY.doubleValue())
+				.railwayDeliveryInTargetCurrency(RAILWAY_DELIVERY_IN_TARGET_CURRENCY.doubleValue())
+				.lastMileDeliveryInTargetCurrency(LAST_MILE_DELIVERY_IN_TARGET_CURRENCY.doubleValue())
 				.agentFee(agentFee.doubleValue())
 				.totalPrice(totalPrice.doubleValue())
 				.totalPricePerSqmInTargetCurrency(totalPricePerSqmInTargetCurrency.doubleValue())

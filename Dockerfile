@@ -1,21 +1,22 @@
 # ---- Build Stage ----
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
+FROM eclipse-temurin:25-jdk AS builder
 WORKDIR /app
-COPY pom.xml .
+COPY gradlew build.gradle settings.gradle ./
+COPY gradle ./gradle
 # Download dependencies first (layer caching)
-RUN mvn dependency:go-offline -q
+RUN ./gradlew dependencies -q
 COPY src ./src
-RUN mvn clean package -DskipTests -q
+RUN ./gradlew bootJar -x test -q
 
 # ---- Run Stage ----
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 
 # Non-root user for security
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring
 
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
