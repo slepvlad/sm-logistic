@@ -305,15 +305,15 @@
       </div>
 
       <div class="field">
-        <label>Currency Cross Rate <span>seller → target</span></label>
-        <input type="number" id="rate" placeholder="e.g. 1.08" min="0" step="0.0001"/>
-        <div class="field-hint">Exchange rate from seller's currency to your currency</div>
-      </div>
-
-      <div class="field">
         <label>Price per sqm <span>seller's currency</span></label>
         <input type="number" id="price" placeholder="e.g. 45.00" min="0" step="0.01"/>
         <div class="field-hint">Cost per square meter quoted by the seller</div>
+      </div>
+
+      <div class="field">
+        <label>Currency Cross Rate <span>seller → target</span></label>
+        <input type="number" id="rate" placeholder="e.g. 1.08" min="0" step="0.0001"/>
+        <div class="field-hint">Exchange rate from seller's currency to your currency</div>
       </div>
 
       <div class="error-card" id="errorCard"></div>
@@ -333,24 +333,52 @@
           <span class="rval" id="rQty">—</span>
         </div>
         <div class="result-row">
-          <span class="rkey">Price per sqm</span>
+          <span class="rkey">Price per sqm (CNY)</span>
           <span class="rval" id="rPrice">—</span>
         </div>
         <div class="result-row">
-          <span class="rkey">Base cost (seller currency)</span>
-          <span class="rval" id="rBase">—</span>
+          <span class="rkey">FOB sum (CNY)</span>
+          <span class="rval" id="rFobSource">—</span>
         </div>
         <div class="result-row">
           <span class="rkey">Exchange rate applied</span>
           <span class="rval" id="rRate">—</span>
         </div>
+        <div class="result-row">
+          <span class="rkey">FOB sum (RUB)</span>
+          <span class="rval" id="rFobTarget">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Customs price (RUB)</span>
+          <span class="rval" id="rCustomPrice">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Customs duty (RUB)</span>
+          <span class="rval" id="rCustomDuty">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Total cost before VAT (RUB)</span>
+          <span class="rval" id="rTotalCost">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">VAT (RUB)</span>
+          <span class="rval" id="rVat">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Agent fee (RUB)</span>
+          <span class="rval" id="rAgentFee">—</span>
+        </div>
+        <div class="result-row">
+          <span class="rkey">Total Cost (RUB)</span>
+          <span class="rval" id="rTotal">—</span>
+        </div>
       </div>
 
       <div class="total-block">
-        <span class="total-label">Total Cost</span>
+        <span class="total-label">Total per sqm</span>
         <span>
-          <span class="total-value" id="rTotal">—</span>
-          <span class="total-currency" id="rCurrency">RUR</span>
+          <span class="total-value" id="rTotalPerSqm">—</span>
+          <span class="total-currency" id="rCurrency">RUB</span>
         </span>
       </div>
     </div>
@@ -407,12 +435,19 @@
 
         const data = await res.json();
 
-        document.getElementById('rQty').textContent   = fmt(data.quantitySquareMeters) + ' sqm';
-        document.getElementById('rPrice').textContent  = fmt(data.pricePerSquareMeter);
-        document.getElementById('rBase').textContent   = fmt(data.baseCost);
-        document.getElementById('rRate').textContent   = '× ' + data.currencyCrossRate;
-        document.getElementById('rTotal').textContent  = fmt(data.totalCostConverted);
-        document.getElementById('rCurrency').textContent = data.currency;
+        document.getElementById('rQty').textContent        = fmt(data.quantitySquareMeters) + ' sqm';
+        document.getElementById('rPrice').textContent      = fmt(data.pricePerSqmInSourceCurrency);
+        document.getElementById('rFobSource').textContent  = fmt(data.fobSumInSourceCurrency);
+        document.getElementById('rRate').textContent       = '× ' + fmt(data.currencyCrossRate, 4);
+        document.getElementById('rFobTarget').textContent  = fmt(data.fobSumInTargetCurrency);
+        document.getElementById('rCustomPrice').textContent = fmt(data.customPriceInTargetCurrency);
+        document.getElementById('rCustomDuty').textContent = fmt(data.customDutyInTargetCurrency);
+        document.getElementById('rTotalCost').textContent  = fmt(data.totalCostInTargetCurrency);
+        document.getElementById('rVat').textContent        = fmt(data.vatTotal);
+        document.getElementById('rAgentFee').textContent   = fmt(data.agentFee);
+        document.getElementById('rTotalPerSqm').textContent = fmt(data.totalPricePerSqmInTargetCurrency);
+        document.getElementById('rTotal').textContent      = fmt(data.totalPrice);
+        document.getElementById('rCurrency').textContent   = data.currency;
 
         document.getElementById('resultCard').classList.add('visible');
       } catch (e) {
