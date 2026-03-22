@@ -6,29 +6,19 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ShippingResponse {
-
+    
     private double quantitySquareMeters;
+    private double pricePerSqmInSourceCurrency;
+    private double fobSumInSourceCurrency;
     private double currencyCrossRate;
-    private double pricePerSquareMeter;
-    private double baseCost;
-    private double totalCostConverted;
+    private double fobSumInTargetCurrency;
     private String currency;
+    private double customPriceInTargetCurrency;
+    private double customDutyInTargetCurrency;
+    private double totalCostInTargetCurrency;
+    private double vatTotal;
+    private double agentFee;
+    private double totalPrice;
+    private double totalPricePerSqmInTargetCurrency;
 
-//    public ShippingResponse(double quantitySquareMeters, double currencyCrossRate,
-//                            double pricePerSquareMeter, double baseCost,
-//                            double totalCostConverted, String currency) {
-//        this.quantitySquareMeters = quantitySquareMeters;
-//        this.currencyCrossRate = currencyCrossRate;
-//        this.pricePerSquareMeter = pricePerSquareMeter;
-//        this.baseCost = baseCost;
-//        this.totalCostConverted = totalCostConverted;
-//        this.currency = currency;
-//    }
-//
-//    public double getQuantitySquareMeters() { return quantitySquareMeters; }
-//    public double getCurrencyCrossRate() { return currencyCrossRate; }
-//    public double getPricePerSquareMeter() { return pricePerSquareMeter; }
-//    public double getBaseCost() { return baseCost; }
-//    public double getTotalCostConverted() { return totalCostConverted; }
-//    public String getCurrency() { return currency; }
 }
