@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class ShippingService {
 
     // MVP constants — will be replaced by DB values in future
-    private static final String TARGET_CURRENCY = "USD";
+    private static final String TARGET_CURRENCY = "RUR";
 
     public ShippingResponse calculate(ShippingRequest request) {
         double qty = request.getQuantitySquareMeters();
