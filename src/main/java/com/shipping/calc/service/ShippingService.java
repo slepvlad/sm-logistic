@@ -20,14 +20,14 @@ public class ShippingService {
 
         // Step 2: Convert to target currency using cross rate
         double totalCostConverted = baseCost * rate;
-
-        return new ShippingResponse(
-                qty,
-                rate,
-                pricePerSqm,
-                Math.round(baseCost * 100.0) / 100.0,
-                Math.round(totalCostConverted * 100.0) / 100.0,
-                TARGET_CURRENCY
-        );
+        
+        return ShippingResponse.builder()
+                .quantitySquareMeters(qty)
+                .currencyCrossRate(rate)
+                .pricePerSquareMeter(pricePerSqm)
+                .baseCost(baseCost)
+                .totalCostConverted(totalCostConverted)
+                .currency(TARGET_CURRENCY)
+                .build();
     }
 }

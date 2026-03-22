@@ -22,8 +22,10 @@ public class ShippingController {
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<ShippingResponse> calculate(@Valid @RequestBody ShippingRequest request) {
-        ShippingResponse response = shippingService.calculate(request);
+    public ResponseEntity<ShippingResponse> calculate(
+            @Valid @RequestBody ShippingRequest request
+    ) {
+        var response = shippingService.calculate(request);
         return ResponseEntity.ok(response);
     }
 
